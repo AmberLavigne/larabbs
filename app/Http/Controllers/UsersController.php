@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Requests\UserRequest;
+use App\Handlers\ImageUploadHandler;
 
 class UsersController extends Controller
 {
@@ -28,11 +29,29 @@ class UsersController extends Controller
         return view('users.edit',compact('user'));
     }
 
-    public function update(UserRequest $request,User $user)
+    /**
+     * 执行编辑
+     * @param UserRequest $request
+     * @param ImageUploadHandler $uploader
+     * @param User $user
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(UserRequest $request, ImageUploadHandler $uploader, User $user)
     {
-        $user->update($request->all());
-        return redirect()->route('users.show',$user->id)->with('success', '个人资料更新成功！');
+        $data = $request->all();
+        // 第一种方法
+        //$file = $request->file('avatar');
+        // 第二种方法，可读性更高
+        //$file = $request->avatar;
+        if ($request->avatar) {
+            $result = $uploader->save($request->avatar, 'avatars', $user->id,362); //最后一个参数为图片裁剪。
+            if ($result) {
+                $data['avatar'] = $result['path'];
+            }
+        }
 
+        $user->update($data);
+        return redirect()->route('users.show', $user->id)->with('success', '个人资料更新成功！');
     }
 
 }
