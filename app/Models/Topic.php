@@ -53,4 +53,9 @@ class Topic extends Model
         # 重写http://larabbs.test/topics/1   路由传递的键名
         return 'id';
     }
+
+    public function link($params = [])
+    {
+        return route('topics.show',array_merge([$this->id,$this->slug],$params));
+    }
 }
