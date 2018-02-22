@@ -47,4 +47,10 @@ class Topic extends Model
         // 按照创建时间排序
         return $query->orderBy('created_at', 'desc');
     }
+
+    public function getRouteKeyName()
+    {
+        # 重写http://larabbs.test/topics/1   路由传递的键名
+        return 'id';
+    }
 }
