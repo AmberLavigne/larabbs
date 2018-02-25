@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Auth;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable {
+        notify as protected laravelNotify;
+    }
 
     /**
      * The attributes that are mass assignable.$fillable 属性的作用是防止用户随意修改模型数据，只有在此属性里定义的字段，才允许修改，否则忽略。
@@ -44,5 +47,25 @@ class User extends Authenticatable
     public function replies()
     {
         return $this->hasMany(Reply::class);
+    }
+
+    /**
+     * 通知消息  ReplyObserver  调用
+     * @param $instance
+     */
+    public function notify($instance)
+    {
+       if($this->id == Auth::id()){
+           return;
+       }
+       $this->increment('notification_count');
+       $this->laravelNotify($instance);
+
+    }
+    public function markAsRead()
+    {
+        $this->notification_count = 0;
+        $this->save();
+        $this->unreadNotifications->markAsRead();
     }
 }
