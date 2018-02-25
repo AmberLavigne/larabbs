@@ -57,6 +57,15 @@
 
                 </div>
             </div>
+            {{--用户回复列表--}}
+            <div class="panel panel-default topic-reply">
+                <div class="panel-body">
+                    {{--回复框--}}
+                    @include('topics._reply_box', ['topic'=>$topic])
+                    {{--用户回复列表。--}}
+                    @include('topics._reply_list', ['replies'=>$topic->replies()->with('user')->get()])
+                </div>
+            </div>
         </div>
     </div>
 @stop

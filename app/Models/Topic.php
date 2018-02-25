@@ -58,4 +58,9 @@ class Topic extends Model
     {
         return route('topics.show',array_merge([$this->id,$this->slug],$params));
     }
+    public function replies()
+    {
+        #一个帖子下面有很多回复。
+        return $this->hasMany(Reply::class,'topic_id','id');
+    }
 }
