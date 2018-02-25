@@ -23,7 +23,6 @@ class ReplyObserver
     {
         $topic = $reply->topic;
         $topic->increment('reply_count',1);
-
         // 通知作者话题被回复了
         $topic->user->notify(new TopicReplied($reply));  //这是重点 $topic->user 传入的就是文章作者。
     }
