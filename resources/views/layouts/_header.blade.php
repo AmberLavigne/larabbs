@@ -55,6 +55,12 @@
                         </a>
 
                         <ul class="dropdown-menu" role="menu">
+                            @can('manage_contents')
+                                <a href="{{ url(config('administrator.uri')) }}">
+                                    <span class="glyphicon glyphicon-dashboard"></span>
+                                    管理后台
+                                </a>
+                            @endcan
                             <li>
                                 <a href="{{ route('users.show',Auth::id()) }}">
                                     <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
