@@ -26,4 +26,13 @@ class ReplyObserver
         // 通知作者话题被回复了
         $topic->user->notify(new TopicReplied($reply));  //这是重点 $topic->user 传入的就是文章作者。
     }
+
+    /**
+     * 减去话题回复数
+     * @param Reply $reply
+     */
+    public function deleted(Reply $reply)
+    {
+       $reply->topic->decrement('reply_count',1);
+    }
 }

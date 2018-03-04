@@ -29,4 +29,13 @@ class TopicObserver
             dispatch(new TranslateSlug($topic));
         }
     }
+
+    /**
+     * 模型监听器
+     * 话题连带删除所在下面的回复
+     * @param Topic $topic
+     */
+    public function deleted(Topic $topic){
+        \DB::table('replies')->where('topic_id',$topic->id)->delete();
+    }
 }
