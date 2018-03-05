@@ -4,6 +4,7 @@
             由 <a href="https://github.com/AmberLavigne" target="_blank">AmberLavigne</a> 设计和编码 <span style="color: #e27575;font-size: 14px;">❤</span>
         </p>
 
-        <p class="pull-right"><a href="https://github.com/AmberLavigne">联系我哟</a></p>
+        <p class="pull-right"><a href="mailto:{{ setting('contact_email') }}">联系我们</a></p>
+
     </div>
 </footer>
