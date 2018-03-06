@@ -46,3 +46,60 @@ Route::resource('replies', 'RepliesController', ['only' => ['store', 'destroy']]
 Route::resource('notifications', 'NotificationsController',['only'=>'index']);
 //无权限提醒页面
 Route::get('permission-denied', 'PagesController@permissionDenied')->name('permission-denied');
+
+Route::get('sss',function(){
+    $arr = [9,10,11,12,29];
+    $tmp = 8;
+
+    $len=count($arr);
+    for($i=1;$i<$len; $i++) {
+        $arr[$len]=$tmp;
+        //内层循环控制，比较并插入
+        for($j=$len;$j>=0;$j--) {
+            if($tmp <$arr[$j-1]){
+                //发现插入的元素要小，交换位置，将后边的元素与前面的元素互换
+                $arr[$j-1] = $arr[$j];
+                $arr[$j] = $arr[$j-1];
+            } else {
+                //如果碰到不需要移动的元素，由于是已经排序好是数组，则前面的就不需要再次比较了。
+                break;
+            }
+        }
+    }
+    print_r($arr);
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
