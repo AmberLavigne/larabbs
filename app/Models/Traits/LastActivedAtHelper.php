@@ -26,6 +26,9 @@ trait LastActivedAtHelper
         Redis::hSet($hash, $field, $now);
     }
 
+    /**
+     * 存储用户最后活跃时间
+     */
     public function syncUserActivedAt()
     {
         // 获取昨日的哈希表名称，如：larabbs_last_actived_at_2017-10-21
